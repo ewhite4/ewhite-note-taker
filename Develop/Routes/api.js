@@ -1,6 +1,5 @@
-const fs = require('fs');
 const router = require('express').Router();
-const { createNewNote, deleteNote } = require('../lib/notes');
+const { createNewNote, deleteNote } = require('../lib/database');
 
 
 router.get('/api/notes', (req, res) => {
