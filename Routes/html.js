@@ -1,4 +1,4 @@
-import { join } from 'path';
+const path = require('path');
 const router = require('express').Router();
 
 router.get("/notes", (req, res) => {
@@ -13,4 +13,5 @@ router.get('*', (re, res) => {
     res.sendFile(join(__dirname, "../../index.html"))
 });
 
-export default router;
+module.exports = router;
+

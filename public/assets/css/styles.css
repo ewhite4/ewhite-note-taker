@@ -29,10 +29,11 @@ body {
   resize: none;
   height: calc(100% - 63px);
   padding-top: 15px;
+  padding-bottom: 100px;
 }
 
 .note-title {
-  height: 50px;
+  height: 40px;
   margin-top: 13px;
   font-size: 3rem;
 }
@@ -45,8 +46,10 @@ body {
 .list-container .card {
   height: calc(100vh - 70px);
   border-bottom: none;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  margin-bottom: 50px;
+  padding-bottom: 100px;
 }
 
 .list-container {
