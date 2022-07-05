@@ -1,37 +1,29 @@
 const router = require('express').Router();
-const { createNewNote, deleteNote } = require('../lib/database');
+const { createNewNote, deleteNote, initDb, hasNote } = require('../lib/database');
 
 
-router.get('/api/notes', (req, res) => {
-    fs.readFile('./db/db.json', (err, data) => {
-        if (err) throw err;
-        console.log(JSON.parse(data));
+router.get('/', (req, res) => {
+    res.json(initDb());
+});
 
-        res.send(data)
-    })
-})
+router.get('/', (req, res) => {
+        if(!hasNote(req.params.id)) {
+            return res.status(400).json({ message: `No not with id of${req.params.id} found`});
+        }
+        res.json(getNote(req.params.id));
+});        
 
-router.post('/api/notes', (req, res) => {
-    let newNote = {
-        id:uniqid(),
-        title: req.body.title,
-        text: req.body.text
+router.post("/", (req, res) => {
+    const newNote = createNewNote(req.body);
+    console.log(req.body);
+    res.json(newNote);
+});
+
+router.delete("/:id", (req, res) => {
+    if(!hasNote(req.params.id)) {
+        return res.status(400).json({ Message: `No note with id of ${req.params.id} found`});
     }
-
-    fs.readFile('./db/db.json', (err, data) => {
-        if (err) throw err;
-
-        let newData = JSON.parse(data);
-
-        newData.push(newNote);
-        console.log(newData)
-
-        fs.writeFile('./db/db.json', JSON.stringify(newData), (err) => {
-            if (err) throw err;
-
-            res.send('successfully added');
-        })
-    });
-})
+    res.json(deleteNote(req.params.id));
+});
 
 module.exports = router;
